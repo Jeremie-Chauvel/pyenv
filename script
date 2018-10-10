@@ -1,0 +1,39 @@
+#! bash
+echo "###################
+downloading and installing pyenv
+###################"
+curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
+echo "###################
+adding pyenv to .zshrc and reloading .zshrc
+###################"
+
+echo '#pyenv setup
+export PATH="/home/$USER/.pyenv/bin:$PATH"
+if [ -z ${PROFILE_LOADED} ]; then
+    export PROFILE_LOADED=true
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi' >> ~/.zshrc
+
+source ~/.zshrc
+
+echo "###################
+installing dev for python libs
+###################"
+sudo apt install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
+
+echo "###################
+installing python 3.6.5
+###################"
+pyenv install 3.6.5
+
+echo "###################
+To create a new virtual env use:
+pyenv virtualenv 3.6.5 <env>
+
+Then go to your project directory and use :
+
+pyenv local <env>
+###################"
+
+
