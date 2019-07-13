@@ -1,4 +1,5 @@
-#! bash
+#! /bin/bash
+sudo echo ''
 echo "###################
 downloading and installing pyenv
 ###################"
@@ -20,7 +21,7 @@ source ~/.zshrc
 echo "###################
 installing dev for python libs
 ###################"
-sudo apt install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
+sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
 
 echo "###################
 installing python 3.6.9
