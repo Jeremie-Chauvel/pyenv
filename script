@@ -8,7 +8,7 @@ echo "###################
 adding pyenv to .zshrc and reloading .zshrc
 ###################"
 
-echo '#pyenv setup
+grep -q -e ~/.zshrc 'export PATH="/home/$USER/.pyenv/bin:$PATH"' || echo '#pyenv setup
 export PATH="/home/$USER/.pyenv/bin:$PATH"
 if [ -z ${PROFILE_LOADED} ]; then
     export PROFILE_LOADED=true
