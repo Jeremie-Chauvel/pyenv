@@ -1,40 +1,58 @@
 #! /bin/bash
-sudo echo ''
-echo "###################
-downloading and installing pyenv
-###################"
-curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-echo "###################
-adding pyenv to .zshrc and reloading .zshrc
-###################"
+sudo -v
+set -euo pipefail
+IFS=$'\n\t'
 
-grep -q -e ~/.zshrc 'export PATH="/home/$USER/.pyenv/bin:$PATH"' || echo '#pyenv setup
+set +e
+type pyenv
+result_status="$?"
+set -e
+if [ "$result_status" -gt 0 ]; then
+    echo '###################'
+    echo 'downloading and installing pyenv'
+    echo '###################'
+    set +eu
+    curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
+    set -eu
+fi
+
+set +e
+grep -q ~/.zshrc -e 'pyenv'
+result_status="$?"
+set -e
+if [ "$result_status" -gt 0 ]; then
+    echo '###################'
+    echo 'adding pyenv to .zshrc and reloading .zshrc'
+    echo '###################'
+
+echo '#pyenv setup
+
 export PATH="/home/$USER/.pyenv/bin:$PATH"
 if [ -z ${PROFILE_LOADED} ]; then
     export PROFILE_LOADED=true
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
-fi' >> ~/.zshrc
-
+fi' | tee --append ~/.zshrc > /dev/null
+fi
+set +eu
 source ~/.zshrc
+set -eu
 
-echo "###################
-installing dev for python libs
-###################"
+echo '###################'
+echo 'installing dev for python libs'
+echo '###################'
 sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
 
-echo "###################
-installing python 3.6.9
-###################"
+echo '###################'
+echo 'installing python 3.6.9'
+echo '###################'
 pyenv install 3.6.9
 
-echo "###################
+echo '###################
 To create a new virtual env use:
 pyenv virtualenv 3.6.9 <env>
 
 Then go to your project directory and use :
 
 pyenv local <env>
-###################"
-
-
+###################'
