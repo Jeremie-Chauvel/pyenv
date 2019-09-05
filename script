@@ -17,7 +17,7 @@ if [ "$result_status" -gt 0 ]; then
 fi
 
 set +e
-grep -q ~/.zshrc -e 'pyenv'
+grep -q ~/.zshrc -e 'export PATH="/home/$USER/.pyenv/bin:$PATH"'
 result_status="$?"
 set -e
 if [ "$result_status" -gt 0 ]; then
@@ -34,9 +34,14 @@ if [ -z ${PROFILE_LOADED} ]; then
     eval "$(pyenv virtualenv-init -)"
 fi' | tee --append ~/.zshrc > /dev/null
 fi
+
 set +eu
-source ~/.zshrc
+export PATH="/home/tarkett/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 set -eu
+
+zsh ~/.zshrc
 
 echo '###################'
 echo 'installing dev for python libs'
