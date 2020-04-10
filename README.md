@@ -2,6 +2,6 @@
 
 usage:
 
-- `git clone https://github.com/Jeremie-Chauvel/pyenv.git`
-- `cd pyenv`
-- `bash ./script`
+```
+bash -c "$(curl -sSL https://raw.githubusercontent.com/Jeremie-Chauvel/pyenv/master/install.sh)"
+```
